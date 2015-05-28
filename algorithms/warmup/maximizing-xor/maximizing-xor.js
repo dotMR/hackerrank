@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/maximizing-xor
+
 'use strict';
 
 var reader = require('file-reader');

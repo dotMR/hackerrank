@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/utopian-tree
+
 'use strict';
 
 var reader = require('file-reader');
@@ -32,3 +34,25 @@ function processData(input) {
         console.log(height);
     }
 }
+
+module.exports = {
+
+    process: function()
+
+    init: function(callback) {
+        if (!callback) {
+            throw Error("callback is required!");
+        }
+
+        var _buffer = "";
+        var inputStream = fs.createReadStream('input.txt');
+
+        inputStream.on('data', function(data) {
+            _buffer += data;
+        });
+
+        inputStream.on('end', function() {
+            callback(_buffer);
+        });
+    }
+};
