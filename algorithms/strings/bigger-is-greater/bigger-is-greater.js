@@ -14,49 +14,50 @@ function findNextGreaterString(input) {
 
     // loop from end to beginning
     //
-    // consider ex: '1243'
+    // consider input: 'abdc'
     for (var i=data.length - 1;i>0;i = i - 1) {
 
-        var currentIndex = i;
-        var current = data[currentIndex];
+        var current = data[i];
 
-        var prevIndex = (i-1);
-        var prev = data[prevIndex];
+        // msc = more significant char
+        var indexMsc = (i-1);
+        var msc = data[indexMsc];
 
-        // find first occurence where the more significant char
-        // has a lower value than the less significant char
+        // find the first occurence where the more significant char
+        // has a lower lexicographic value than the current char
         // 
-        // '1243' -> ex: current: 4, prev: 2
-        if (current > prev) {
+        // 'abdc' -> ex: current: 'd', msc: 'b'
+        if (current > msc) {
 
-            // split the string at the prev value
+            // split the string at the msc
             // 
-            // left: '1', right: '243'
-            var left = data.slice(0, prevIndex);
-            var right = data.slice(prevIndex);
+            // left: 'a', right: 'bdc'
+            var left = data.slice(0, indexMsc);
+            var right = data.slice(indexMsc);
 
-            // sort remaining chars
+            // sort all chars within right
             //
-            // right: '234'
+            // right: 'bcd'
             right.sort();
 
-            // find the next char to the right which is > prev
+            // find the first char in right which is > msc
             // 
-            // we will find '3'
-            var nextIndex = (right.lastIndexOf(prev) + 1);
-            var nextChar = right[nextIndex];
+            // msc: 'b', right: 'bcd'
+            // we will find 'c'
+            var nextIndex = (right.lastIndexOf(msc) + 1);
+            var next = right[nextIndex];
 
-            // remove the next char from the right
+            // remove next from right
             // 
-            // remove '3' -> right: '24'
+            // next: 'c', right: 'bd'
             right.splice(nextIndex, 1);
 
             // build the next lexicographically bigger string
             //
-            // left: '1', next: '3', right: '24'
-            left.push(nextChar);
+            // left: 'a', next: 'c', right: 'bd'
+            // return 'acbd'
+            left.push(next);
             var result = left.concat(right);
-
             return result.join('');
         }
     }
