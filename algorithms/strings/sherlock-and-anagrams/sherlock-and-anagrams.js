@@ -9,6 +9,22 @@ function parseBase10(s) {
     return parseInt(s, 10);
 }
 
+function generateCharMap(s) {
+    var index = [];
+    for (var i=0;i<s.length;i++) {
+        var c = s.charCodeAt(i) - ASCII_VAL_a;
+
+        var count = 1;
+        if (index[c]) {
+            count = parseBase10(index[c]) + 1;
+        }
+
+        index[c] = count;
+    }
+
+    return index;
+}
+
 function countAnagrams(s) {
     var count = 0;
     var misses = 0;
@@ -19,6 +35,7 @@ function countAnagrams(s) {
         var a = s.charAt(start);
         var b = s.charAt(end);
 
+        console.log('a: ' + a + ', b: ' + b);
         if (a == b) {
             count = count + 1;
         } else {
